@@ -17,7 +17,7 @@ phases:
     commands:
       - echo "Updating lambda Function..."
       - aws lambda update-function-code --function-name myfirstlambda  --zip-file fileb://deployment_package.zip
-      - aws lambda publish-version  --function-name myfirstlambda
+      - aws lambda publish-version  --function-name myfirstlambda --output text
       - echo "Printing Latest Version of Lambda Fcution"
       - LATEST_VERSION=$(aws lambda list-versions-by-function --function-name myfirstlambda --query "max_by(Versions, &Version).{Version:Version}" --output text)
       - echo "Updating Latest Version to alias "
