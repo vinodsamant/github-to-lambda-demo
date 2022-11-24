@@ -16,11 +16,11 @@ phases:
   post_build:
     commands:
       - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name myfirstlambda  --zip-file fileb://deployment_package.zip
+      - aws lambda update-function-code --function-name mylambdafunction-uat  --zip-file fileb://deployment_package.zip
       - sleep 120
-      - aws lambda publish-version  --function-name myfirstlambda
+      - aws lambda publish-version  --function-name mylambdafunction-uat
       - echo "Printing Latest Version of Lambda Fcution"
-      - eval LATEST_VERSION=$(aws lambda list-versions-by-function --function-name myfirstlambda --query "max_by(Versions, &Version).{Version:Version}" --output text)
+      - eval LATEST_VERSION=$(aws lambda list-versions-by-function --function-name mylambdafunction-uat --query "max_by(Versions, &Version).{Version:Version}" --output text)
       - echo "Updating Latest Version to alias "
-      - aws lambda update-alias --function-name myfirstlambda --name Production --function-version $LATEST_VERSION
+      - aws lambda update-alias --function-name mylambdafunction-uat --name Production --function-version $LATEST_VERSION
       - echo "DONE!!"
