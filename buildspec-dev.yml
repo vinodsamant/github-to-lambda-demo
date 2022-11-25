@@ -20,10 +20,10 @@ phases:
       - aws lambda update-function-code --function-name mylambdafunction-dev --zip-file fileb://deployment_package.zip
       - echo -e "Checking sttaus of lambda code."
       - eval command=`aws lambda get-function --function-name mylambdafunction-dev --query 'Configuration.LastUpdateStatus'| cut -b 2-11 `
-      - chmod +x test.sh
-      - ./test.sh
+      - chmod +x lambdafunctionstatus-dev.sh
+      - ./lambdafunctionstatus-dev.sh
       - aws lambda publish-version  --function-name mylambdafunction-dev
-      - echo "Printing Latest Version of Lambda Fcution"
+      - echo "Printing Latest Version of Lambda Function"
       - eval LATEST_VERSION=$(aws lambda list-versions-by-function --function-name mylambdafunction-dev --query "max_by(Versions, &Version).{Version:Version}" --output text)
       - echo "Updating Latest Version to alias "
       - aws lambda update-alias --function-name mylambdafunction-dev --name Production --function-version $LATEST_VERSION
