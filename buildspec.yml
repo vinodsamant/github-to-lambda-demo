@@ -17,7 +17,6 @@ phases:
     commands:
       - echo "Updating lambda Function..."
       - aws lambda update-function-code --function-name mylambdafunction-dev --zip-file fileb://deployment_package.zip
-      - sleep 120
       - aws lambda publish-version  --function-name mylambdafunction-dev
       - echo "Printing Latest Version of Lambda Fcution"
       - eval LATEST_VERSION=$(aws lambda list-versions-by-function --function-name mylambdafunction-dev --query "max_by(Versions, &Version).{Version:Version}" --output text)
