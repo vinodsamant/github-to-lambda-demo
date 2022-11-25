@@ -3,7 +3,7 @@ import time
 
 client = boto3.client('lambda')
 
-funcName = 'codebuild-github-lambda-uat'
+funcName = 'mylambdafunction-uat'
 retries = 1
 MAX_RETRIES = 10
 retry = True
