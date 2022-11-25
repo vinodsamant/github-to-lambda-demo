@@ -5,5 +5,6 @@ command=`aws lambda get-function --function-name mylambdafunction-uat --query 'C
 while [ "$command" != "Successful" ]
 do 
    sleep 2
-   echo "$command"
+   command=`aws lambda get-function --function-name mylambdafunction-uat --query 'Configuration.LastUpdateStatus'| cut -b 2-11 `
+   echo $command
 done
