@@ -16,6 +16,7 @@ phases:
   post_build:
     commands:
       - echo "Updating lambda Function..."
+      - codebuild-breakpoint
       - aws lambda update-function-code --function-name mylambdafunction-dev --zip-file fileb://deployment_package.zip
       - echo -e "Checking sttaus of lambda code."
       - eval command=`aws lambda get-function --function-name mylambdafunction-dev --query 'Configuration.LastUpdateStatus'| cut -b 2-11 `
