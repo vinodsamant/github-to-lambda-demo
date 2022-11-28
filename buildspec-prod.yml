@@ -23,7 +23,9 @@ phases:
       - echo "Publish Lambda Function Version"
       - aws lambda publish-version  --function-name myfirstlambda
       - echo "Printing Latest Version of Lambda Fcution"
-      - eval LATEST_VERSION=$(aws lambda list-versions-by-function --function-name myfirstlambda --query "max_by(Versions, &Version).{Version:Version}" --output text)
+      - eval LATEST_VERSION=$(aws lambda list-versions-by-function --function-name myfirstlambda  --no-paginate   --query "max_by(Versions, &to_number(to_number(Version) || '0'))" | grep -i Version | cut -b 17- | rev | cut -b 3- | rev)
       - echo "Updating Latest Version to alias "
       - aws lambda update-alias --function-name myfirstlambda --name Production --function-version $LATEST_VERSION
+      - eval OLD_VERSION=$(expr $LATEST_VERSION - 5)
+      - echo "$OLD_VERSION"
       - echo "DONE!!"

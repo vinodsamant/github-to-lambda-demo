@@ -2,6 +2,7 @@
  
 while :
 do
+  
 	command=`aws lambda get-function --function-name myfirstlambda --query 'Configuration.LastUpdateStatus'| cut -b 2-11`
         read command
 	if [ "$command" != "InProgress" ]
@@ -10,5 +11,5 @@ do
 	fi
 	
 	echo $command
-   
+   sleep 2
 done
