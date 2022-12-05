@@ -1,6 +1,7 @@
 #!/bin/bash
  
  ## For Status Check of Lambda Functions Testing 
+ 
 while :
 do
 	command=`aws lambda get-function --function-name $Lambda_Function --query 'Configuration.LastUpdateStatus'| cut -b 2-11`
